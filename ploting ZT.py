@@ -198,61 +198,62 @@ def PlotData(data):
     #1
     plt.plot(All_tempatures, All_Seebeck)
     plt.axis([miny, maxy, ploting_rangeL(All_Seebeck), ploting_rangeH(All_Seebeck)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('Seebeck')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #2
     plt.plot(All_tempatures, All_K)
     plt.axis([miny, maxy, ploting_rangeL(All_K), ploting_rangeH(All_K)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('Thermal conductivity')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #3
     plt.plot(All_tempatures, All_zT)
     plt.axis([miny, maxy, ploting_rangeL(All_zT), ploting_rangeH(All_zT)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('zT')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #4
     plt.plot(All_tempatures, All_max_Red_eff)
     plt.axis([miny, maxy, ploting_rangeL(All_max_Red_eff), ploting_rangeH(All_max_Red_eff)])
-    plt.ylabel('S (1/V)')
+    plt.ylabel('Maxemun Redused effecentcy')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #5
     plt.plot(All_tempatures, All_S)
     plt.axis([miny, maxy, ploting_rangeL(All_S), ploting_rangeH(All_S)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('s (1/V)')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #6
     plt.plot(All_tempatures, All_u)
     plt.axis([miny, maxy, ploting_rangeL(All_u), ploting_rangeH(All_u)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('u (1/V)')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #7
     plt.plot(All_tempatures, All_reduced_efficiency)
     plt.axis([miny, maxy, ploting_rangeL(All_reduced_efficiency), ploting_rangeH(All_reduced_efficiency)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('Redused effecentcy')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #8
     plt.plot(All_tempatures, All_Phi)
     plt.axis([miny, maxy, ploting_rangeL(All_Phi), ploting_rangeH(All_Phi)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('(|) Phi')
     plt.xlabel('Tempiture (K)')
     plt.show()
+    #9
     del All_tempatures[0]
     plt.plot(All_tempatures, All_efficiency)
-    plt.axis([miny, maxy, ploting_rangeL(All_reduced_efficiency), ploting_rangeH(All_efficiency)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.axis([miny, maxy, ploting_rangeL(All_efficiency), ploting_rangeH(All_efficiency)])
+    plt.ylabel('effecentcy')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #10
     plt.plot(All_tempatures, All_ZT)
     plt.axis([miny, maxy, ploting_rangeL(All_ZT), ploting_rangeH(All_ZT)])
-    plt.ylabel('Maxemun Redused effecentcy')
+    plt.ylabel('ZT')
     plt.xlabel('Tempiture (K)')
     plt.show()
     #11
@@ -285,16 +286,18 @@ def PlotData(data):
     plt.xlabel('Relative Current Density (u)')
     plt.show()
 
-    #Export("MLM_export.csv", CSV)
+print ("Units:")
+print ("your units should be miliOhme centimerters, micro volts per kelven and, wats per meter kelven")
+print ("the first colem should have tempeture the second Ristance the third Sebec and the last Conductivity")
 while True:
-    print("These are the instructions.")
-    print("A) creat a CSV file with calculated stuff")
-    print("B) print some graphs")
-    print("C) do both")
-    print("type 'Q' to end the program.")
+    print("These are the instructions. Enter")
+    print("A) to creat a new CSV file with calculated ZT and oter values")
+    print("B) to graph data")
+    print("C) to do both")
+    print("Q) to end the program.")
     mode = input("What do you want to do?(A, B, C)   ")
     if mode.upper() == 'A':
-        fileName = "csv three.CSV"#input("What is the name of the file?   ")
+        fileName = input("What is the name of the file?   ")
         #Import
         CSV = Import(fileName)
         #Extend list
@@ -302,10 +305,8 @@ while True:
         #export
         destination = input("When this file is exported what do you want to save it as?   ")
         Export(destination, CSV)
-        #Extend existing csv file
-        ...
     elif mode.upper() == 'B':
-        fileName = "csv three.CSV"#input("What is the name of the file?   ")
+        fileName = input("What is the name of the file?   ")
         #Import
         CSV = Import(fileName)
         #Extend list
@@ -319,13 +320,12 @@ while True:
         #Extend list
         CalculateData(CSV)
         #do A and B
-        ...
+        PlotData(CSV)
+        destination = input("When this file is exported what do you want to save it as?   ")
+        Export(destination, CSV)
     elif mode.upper() == 'Q':
         break
     else:
         print("That made no sence")
 
-"""print ("instructions:")
-print ("your units should be miliOhme centimerters, micro volts per kelven and, wats per meter kelven")
-print ("the first colem should have tempeture the second Ristance the third Sebec and the last Conductivity")
-test("MLM.csv")"""
+
