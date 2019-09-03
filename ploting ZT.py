@@ -8,14 +8,14 @@ def Import(file_name):
     with open(file_name, 'r') as opended_File:
         File = csv.reader(opended_File)
         for row in File:
-            #temperarlily store the values in eache row before adding it to the compleated file
+            #temporarily store the values in each row before adding it to the completed file
             store_row=[]
             # if there is stuff in the row
             if len(row) > 0:
-                # if the first thing is a number with more than two didgets so not 8
+                # if the first thing is a number with more than two digits so not 8
                 if len(row[0]) > 1 and row[0].isdigit():
                     for value in row:
-                        # if the value exiss
+                        # if the value exists
                         if len(value) > 0:
                             store_row.append(float(value))
                     file.append(store_row)
@@ -87,10 +87,10 @@ def functions_efficincy_as_a_function_of_u(file, initial_u):
     return((NL-N1)/NL)
 
     #return(eachZT)
-#tempiture(T) is in Kelven
+#temperature(T) is in Kelvin
 #R is in Ohm*Meters*10^-5
-#S is in Volts/Kelven*10^-6
-#thirmial conducttivity(K) is in Wats/Merer/Kelven*10^-1
+#S is in Volts/Kelvin*10^-6
+#thermal conductivity(K) is in Watts/(Meter*Kelvin)*10^-1
 
 def ploting_rangeL(to_plot):
     return (round(((find_lowest(to_plot)) - (.1 * (find_highest(to_plot) - find_lowest(to_plot))))*100)/100)
@@ -121,7 +121,7 @@ def Device_Efficiency_versus_Relative_Current_Density(list_name):
   
     plt.plot(U, dev_eff,color="#065f00", linewidth=1.5)
     print ("optimised u", optimized_U)
-    print ("Highest device efficiancy", x)
+    print ("Highest device efficiency", x)
     plt.plot(hDF_U, highest_dev_eff, 'o', color="#821cff", linewidth=10,)
     plt.axis([((find_lowest(U)) - .01), ((find_highest(U)) + .01), 0, ploting_rangeH(dev_eff)])
     plt.ylabel('Device Efficiency')
@@ -192,69 +192,69 @@ def PlotData(data):
         
     plt.plot(All_tempatures, All_R)
     plt.axis([miny, maxy, ploting_rangeL(All_R), ploting_rangeH(All_R)])
-    plt.ylabel('Ristance')
-    plt.xlabel('Tempiture (K)')
+    plt.ylabel('Resistance')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #1
     plt.plot(All_tempatures, All_Seebeck)
     plt.axis([miny, maxy, ploting_rangeL(All_Seebeck), ploting_rangeH(All_Seebeck)])
     plt.ylabel('Seebeck')
-    plt.xlabel('Tempiture (K)')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #2
     plt.plot(All_tempatures, All_K)
     plt.axis([miny, maxy, ploting_rangeL(All_K), ploting_rangeH(All_K)])
     plt.ylabel('Thermal conductivity')
-    plt.xlabel('Tempiture (K)')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #3
     plt.plot(All_tempatures, All_zT)
     plt.axis([miny, maxy, ploting_rangeL(All_zT), ploting_rangeH(All_zT)])
     plt.ylabel('zT')
-    plt.xlabel('Tempiture (K)')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #4
     plt.plot(All_tempatures, All_max_Red_eff)
     plt.axis([miny, maxy, ploting_rangeL(All_max_Red_eff), ploting_rangeH(All_max_Red_eff)])
-    plt.ylabel('Maxemun Redused effecentcy')
-    plt.xlabel('Tempiture (K)')
+    plt.ylabel('Maximum Reduced efficiency')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #5
     plt.plot(All_tempatures, All_S)
     plt.axis([miny, maxy, ploting_rangeL(All_S), ploting_rangeH(All_S)])
     plt.ylabel('s (1/V)')
-    plt.xlabel('Tempiture (K)')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #6
     plt.plot(All_tempatures, All_u)
     plt.axis([miny, maxy, ploting_rangeL(All_u), ploting_rangeH(All_u)])
     plt.ylabel('u (1/V)')
-    plt.xlabel('Tempiture (K)')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #7
     plt.plot(All_tempatures, All_reduced_efficiency)
     plt.axis([miny, maxy, ploting_rangeL(All_reduced_efficiency), ploting_rangeH(All_reduced_efficiency)])
-    plt.ylabel('Redused effecentcy')
-    plt.xlabel('Tempiture (K)')
+    plt.ylabel('Reduced efficiency')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #8
     plt.plot(All_tempatures, All_Phi)
     plt.axis([miny, maxy, ploting_rangeL(All_Phi), ploting_rangeH(All_Phi)])
     plt.ylabel('(|) Phi')
-    plt.xlabel('Tempiture (K)')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #9
     del All_tempatures[0]
     plt.plot(All_tempatures, All_efficiency)
     plt.axis([miny, maxy, ploting_rangeL(All_efficiency), ploting_rangeH(All_efficiency)])
-    plt.ylabel('effecentcy')
-    plt.xlabel('Tempiture (K)')
+    plt.ylabel('efficiency')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #10
     plt.plot(All_tempatures, All_ZT)
     plt.axis([miny, maxy, ploting_rangeL(All_ZT), ploting_rangeH(All_ZT)])
     plt.ylabel('ZT')
-    plt.xlabel('Tempiture (K)')
+    plt.xlabel('Temperature (K)')
     plt.show()
     #11
     
@@ -279,7 +279,7 @@ def PlotData(data):
     U_incroment = U[2]-U[1]
     plt.plot(U, dev_eff,color="#065f00", linewidth=1.5)
     print ("optimised u", optimized_U)
-    print ("Highest device efficiancy", x)
+    print ("Highest device efficiency", x)
     plt.plot(hDF_U, highest_dev_eff, 'o', color="#821cff", linewidth=10,)
     plt.axis([((find_lowest(U)) - U_incroment), ((find_highest(U)) + U_incroment), 0, ploting_rangeH(dev_eff)])
     plt.ylabel('Device Efficiency')
@@ -287,26 +287,29 @@ def PlotData(data):
     plt.show()
 
 print ("Units:")
-print ("your units should be miliOhme centimerters, micro volts per kelven and, wats per meter kelven")
-print ("the first colem should have tempeture the second Ristance the third Sebec and the last Conductivity")
+print ("your units should be miliOhm centimeters, micro volts per kelvin and watts per meter kelvin")
+print ("the first column should have temperature the second Resistance the third Sebec and the last Conductivity")
+#CSV = Import("Examples\Example 1.csv")
+#CalculateData(CSV)
+#PlotData(CSV)
 while True:
-    print("These are the instructions. Enter")
-    print("A) to creat a new CSV file with calculated ZT and oter values")
+    print("These are the instructions. Enter:")
+    print("A) to create a new CSV file with calculated ZT and other values")
     print("B) to graph data")
     print("C) to do both")
     print("Q) to end the program.")
-    mode = input("What do you want to do?(A, B, C)   ")
+    mode = input("What do you want to do?(A, B, C)\n")
     if mode.upper() == 'A':
-        fileName = input("What is the name of the file?   ")
+        fileName = input("What is the name of the file?\n")
         #Import
         CSV = Import(fileName)
         #Extend list
         CalculateData(CSV)
         #export
-        destination = input("When this file is exported what do you want to save it as?   ")
+        destination = input("When this file is exported what do you want to save it as?\n")
         Export(destination, CSV)
     elif mode.upper() == 'B':
-        fileName = input("What is the name of the file?   ")
+        fileName = input("What is the name of the file?\n")
         #Import
         CSV = Import(fileName)
         #Extend list
@@ -314,18 +317,16 @@ while True:
         #Print graphs do not change csv file
         PlotData(CSV)
     elif mode.upper() == 'C':
-        fileName = input("What is the name of the file?   ")
+        fileName = input("What is the name of the file?\n")
         #Import
         CSV = Import(fileName)
         #Extend list
         CalculateData(CSV)
         #do A and B
         PlotData(CSV)
-        destination = input("When this file is exported what do you want to save it as?   ")
+        destination = input("When this file is exported what do you want to save it as?\n")
         Export(destination, CSV)
     elif mode.upper() == 'Q':
         break
     else:
-        print("That made no sence")
-
-
+        print("That made no sense.")
