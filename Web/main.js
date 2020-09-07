@@ -36,6 +36,9 @@ function OpenInput() {
     var reader = new FileReader();
     reader.onload = function (event) {
         var csvArray = csvReader(event.target.result);
+
+        CalculateData(csvArray);
+
         var textArray = [];
         for (let i = 0; i < csvArray.length; i++) {
             const element = csvArray[i];
@@ -118,11 +121,11 @@ function optimizeUForDefEff(data) { //garbage optimization:
             // if F_efficiency_as_a_function_of_u(data, (um+(x+2)*du)) < if F_efficiency_as_a_function_of_u(data, (um+x*du))
             // break
         }
-        place = find_place(Math.max(test_U), test_U) //place is the highest point
+        place = test_U.findIndex(Math.max(...test_U)) //place is the highest point
         Us = []
         Us.push(um + du * place)
         test_U[place] = -100
-        Us.push(um + du * find_place(Math.max(test_U), test_U)) // this is finding the second highest
+        Us.push(um + du * test_U.findIndex(Math.max(...test_U))) // this is finding the second highest
     }
     return (um)
 }
@@ -137,10 +140,10 @@ function F_max_Red_eff(zT) {
 function F_efficiency_as_a_function_of_u(file, initial_u) {
     var notFile = [];
     notFile[0] = initial_u; // not file is so that the file is not changed it should be called something else some sort of efficiency
-    for (let index = 0; index < file.length; index++) {
-        notFile[index + 1] = (1 / (((1 / notFile[index]) * Math.sqrt(abs(1 - 2 * notFile[index] * notFile[index] * (file[index + 1][1] * file[index + 1][3] + file[index][1] * file[index][3]) * (10 ** -5) / 2 * (file[index + 1][0] - file[index][0])))) - (file[index + 1][0] + file[index][0]) / 2 * (file[index + 1][2] - file[index][2]) * (10 ** -6)))
+    for (let index = 0; index < file.length-1; index++) {
+        notFile[index + 1] = (1 / (((1 / notFile[index]) * Math.sqrt(Math.abs(1 - 2 * notFile[index] * notFile[index] * (file[index + 1][1] * file[index + 1][3] + file[index][1] * file[index][3]) * (10 ** -5) / 2 * (file[index + 1][0] - file[index][0])))) - (file[index + 1][0] + file[index][0]) / 2 * (file[index + 1][2] - file[index][2]) * (10 ** -6)))
     }
-    var NL = file[-1][2] * file[-1][0] / 1000000 + 1 / notFile[-1]
+    var NL = file[file.length-1][2] * file[file.length-1][0] / 1000000 + 1 / notFile[notFile.length-1]
     var N1 = file[0][2] * file[0][0] / 1000000 + 1 / notFile[0]
     return ([(NL - N1) / NL, notFile])
 }
@@ -149,8 +152,8 @@ function CalculateData(StaticData) {
     var data = StaticData // Is this needed in java script?
     for (let rIndex = 0; rIndex < data.length; rIndex++) {
         const row = data[rIndex];
-        data[rIndex][4] = functions_zT(row[0], row[1], row[2], row[3]); //zt
-        data[rIndex][5] = functions_max_Red_eff(row[4]); // max reduced efficiency
+        data[rIndex][4] = F_zT(row[0], row[1], row[2], row[3]); //zt
+        data[rIndex][5] = F_max_Red_eff(row[4]); // max reduced efficiency
         data[rIndex][6] = (Math.sqrt(1 + row[4]) - 1) / (row[2] * row[0] / 1000000); // Seebeck
         data[rIndex][7] = null; // something will be added
     }
