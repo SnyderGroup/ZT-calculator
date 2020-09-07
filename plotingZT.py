@@ -41,7 +41,7 @@ def optomiseUfordefeff(data):
         test_U = []
         du = (ux-um)/5
         for x in range(6):
-            test_U.append(functions_efficincy_as_a_function_of_u(data, (um+x*du)))
+            test_U.append(functions_efficiency_as_a_function_of_u(data, (um+x*du)))
         place = find_place(find_highest(test_U), test_U)
         Us = []
         Us.append(um + du*place)
@@ -74,7 +74,7 @@ def functions_zT(T,R,S,K):
 def functions_max_Red_eff(zT):
     return ((math.sqrt(1+zT)-1)/(math.sqrt(1+zT)+1))
 
-def functions_efficincy_as_a_function_of_u(file, initial_u):
+def functions_efficiency_as_a_function_of_u(file, initial_u):
     for datum in (file):
         if len(datum) < 8:
             datum.append(0)
@@ -105,7 +105,7 @@ def Device_Efficiency_versus_Relative_Current_Density(list_name):
     x = 1
     u = .01
     while x > 0:
-        x = (functions_efficincy_as_a_function_of_u(list_name, u))
+        x = (functions_efficiency_as_a_function_of_u(list_name, u))
         u += .01
         dev_eff.append(x)
         U.append(u)
@@ -116,7 +116,7 @@ def Device_Efficiency_versus_Relative_Current_Density(list_name):
             break
     
     optimized_U = optomiseUfordefeff(list_name)
-    x = functions_efficincy_as_a_function_of_u(list_name, optimized_U)
+    x = functions_efficiency_as_a_function_of_u(list_name, optimized_U)
     
   
     plt.plot(U, dev_eff,color="#065f00", linewidth=1.5)
@@ -143,7 +143,7 @@ def CalculateData(data):
             datum.append(.123)
 
     optimized_U = optomiseUfordefeff(data)
-    (functions_efficincy_as_a_function_of_u(data, optimized_U))
+    (functions_efficiency_as_a_function_of_u(data, optimized_U))
 
     for datum in data:
         redefficiency = ((datum[7]*(datum[2]-datum[7]*datum[1]*datum[3]*10)/10**6)/(datum[7]*datum[2]/10**6+1/datum[0]))
@@ -264,7 +264,7 @@ def PlotData(data):
     x = 1
     u = .01
     while x > 0:
-        x = (functions_efficincy_as_a_function_of_u(data, u))
+        x = (functions_efficiency_as_a_function_of_u(data, u))
         u_vs_dev_eff.append([u, x])
         u += .01
         dev_eff.append(x)
@@ -275,7 +275,7 @@ def PlotData(data):
             hDF_U = thing[0]
             break
     optimized_U = optomiseUfordefeff(data)
-    x = (functions_efficincy_as_a_function_of_u(data, optimized_U))
+    x = (functions_efficiency_as_a_function_of_u(data, optimized_U))
     U_incroment = U[2]-U[1]
     plt.plot(U, dev_eff,color="#065f00", linewidth=1.5)
     print ("optimised u", optimized_U)
