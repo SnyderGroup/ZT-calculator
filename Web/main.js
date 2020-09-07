@@ -82,8 +82,8 @@ function setToFile(parsedCSV) {
         null,
         4
     );
-    console.log(parsedCSV.data);
-    console.log(CalculateData(parsedCSV.data));
+    //console.log(parsedCSV.data);
+    //console.log(CalculateData(parsedCSV.data));
 }
 
 function setToText() {
@@ -94,7 +94,7 @@ function setToText() {
                 null,
                 4
             );
-            console.log(results.data);
+            //console.log(results.data);
         },
         dynamicTyping: true,
         worker: true,
@@ -106,28 +106,34 @@ function setToText() {
 // zt-calculator
 
 function optimizeUForDefEff(data) { //garbage optimization:
-    var Us = [.1, 4]
-    var test_U = [];
+    var Us = [.1, 4];
+    var test_U = [1,2,3,4,5];
+    var um=0.0;
+    var ux=0.0;
     while (true) {
-        ux = Math.max(Us);
-        um = Math.min(Us);
-        if ((um - ux) < .0001 || (um - ux) > -.0001) {
-            break
+        var ux = Math.max(...Us);
+        var um = Math.min(...Us);
+        if ( (um - ux) > -.000001) {
+            console.log(um,ux);
+            break;
         }
-        test_U = []
+        test_U = [];
         var du = (ux - um) / 5;
         for (let x = 0; x < 6; x++) {
-            test_U.push(F_efficiency_as_a_function_of_u(data, (um + x * du))[0])
+            test_U[x] = (F_efficiency_as_a_function_of_u(data, (um + x * du))[0]);
             // if F_efficiency_as_a_function_of_u(data, (um+(x+2)*du)) < if F_efficiency_as_a_function_of_u(data, (um+x*du))
             // break
         }
-        place = test_U.findIndex(Math.max(...test_U)) //place is the highest point
-        Us = []
-        Us.push(um + du * place)
-        test_U[place] = -100
-        Us.push(um + du * test_U.findIndex(Math.max(...test_U))) // this is finding the second highest
+        //var MaxU = Math.max(...test_U);
+        var place = test_U.findIndex( function Equals(e) {return e === Math.max(...test_U); } ); //place is the highest point
+        Us = [];
+        Us.push(um + du * place);
+        test_U[place] = -100;
+        var SecondMaxU = Math.max(...test_U);
+        Us.push(um + du * test_U.findIndex(function Equals(e) {return e === Math.max(...test_U); })); // this is finding the second highest
     }
-    return (um)
+    console.log(um);
+    return (um);
 }
 
 function F_zT(T, R, S, K) {
@@ -157,7 +163,7 @@ function CalculateData(StaticData) {
         data[rIndex][6] = (Math.sqrt(1 + row[4]) - 1) / (row[2] * row[0] / 1000000); // Seebeck
         data[rIndex][7] = null; // something will be added
     }
-    optimized_U = optimizeUForDefEff(data)[0]
+    var optimized_U = optimizeUForDefEff(data);
     var EfficiencyU = F_efficiency_as_a_function_of_u(data, optimized_U)[1]
     for (let i = 0; i < data.length; i++) {
         data[i][7] = EfficiencyU[i];
