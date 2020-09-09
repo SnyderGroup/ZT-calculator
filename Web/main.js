@@ -37,16 +37,20 @@ function OpenInput() {
     reader.onload = function (event) {
         var csvArray = csvReader(event.target.result);
 
-        CalculateData(csvArray);
+        var csvArrayCalculated = CalculateData(csvArray);
 
         var textArray = [];
-        for (let i = 0; i < csvArray.length; i++) {
-            const element = csvArray[i];
+        var textcsvArrayCalculated = []
+        for (let i = 0; i < csvArrayCalculated.length; i++) {
+            const element = csvArrayCalculated[i];
             textArray[i] = element.join("\t");
+            textcsvArrayCalculated[i] = element.join(",");
         }
         text = textArray.join("\n");
+        csvText= textcsvArrayCalculated.join("\n");
         document.getElementById("output").innerHTML = text;
         console.log(text);
+        setDownload("Temperature,Resistivity,Seebeck,Thermal Conductivity,zT,max Red efficiency,s,u,Red efficiency,Phi,efficiency,ZT\n"+csvText);
     }
     reader.readAsText(file);
 }
@@ -185,3 +189,13 @@ function CalculateData(StaticData) {
     }
     return data
 }
+
+
+function setDownload(text){
+    var data = new Blob([text], {type: 'text/plain'});
+
+    var url = window.URL.createObjectURL(data);
+
+    document.getElementById('download_link').href = url;
+}
+
