@@ -29,13 +29,11 @@
 });*/
 
 function OpenInput() {
-    var file = document.getElementById("CSVFile").files[0];
-    console.log(file instanceof Blob)
-    //var file = filesInput.files.item(0);
-    //var file = filesInput.item(0);
+    let file = document.getElementById("CSVFile").files[0];
+    //console.log(file instanceof Blob)
     var reader = new FileReader();
     reader.onload = function (event) {
-        var csvArray = csvReader(event.target.result);
+        let csvArray = csvReader(event.target.result);
 
         var csvArrayCalculated = CalculateData(csvArray);
 
@@ -56,7 +54,7 @@ function OpenInput() {
 }
 
 function csvReader(CSVText) {
-    var csvArray = CSVText.split("\n");
+    let csvArray = CSVText.split("\n");
     var csvArrayFloat = []
     var i = 0;
     for (i = 0; i < csvArray.length; i++) {
@@ -125,7 +123,7 @@ function optimizeUForDefEff(data) { //garbage optimization:
         var du = (ux - um) / 5;
         for (let x = 0; x < 6; x++) {
             test_U[x] = (F_efficiency_as_a_function_of_u(data, (um + x * du))[0]);
-            // if F_efficiency_as_a_function_of_u(data, (um+(x+2)*du)) < if F_efficiency_as_a_function_of_u(data, (um+x*du))
+            // if F_efficiency_as_a_function_of_u(data, (um+(x+2)*du)) < if             F_efficiency_as_a_function_of_u(data, (um+x*du))
             // break
         }
         //var MaxU = Math.max(...test_U);
@@ -133,7 +131,6 @@ function optimizeUForDefEff(data) { //garbage optimization:
         Us = [];
         Us.push(um + du * place);
         test_U[place] = -100;
-        var SecondMaxU = Math.max(...test_U);
         Us.push(um + du * test_U.findIndex(function Equals(e) {return e === Math.max(...test_U); })); // this is finding the second highest
     }
     console.log(um);
@@ -174,9 +171,9 @@ function CalculateData(StaticData) {
     }
     for (let rIndex = 0; rIndex < data.length; rIndex++) {
         const datum = data[rIndex];
-        redEfficiency = ((datum[7] * (datum[2] - datum[7] * datum[1] * datum[3] * 10) / 10 ** 6) / (datum[7] * datum[2] / 10 ** 6 + 1 / datum[0]));
+        let redEfficiency = ((datum[7] * (datum[2] - datum[7] * datum[1] * datum[3] * 10) / 10 ** 6) / (datum[7] * datum[2] / 10 ** 6 + 1 / datum[0]));
         data[rIndex][8] = redEfficiency;
-        Phi = (datum[2] * datum[0] / 1000000 + 1 / datum[7]);
+        let Phi = (datum[2] * datum[0] / 1000000 + 1 / datum[7]);
         data[rIndex][9] = Phi;
     }
     for (let rIndex = 0; rIndex < data.length - 1; rIndex++) {
@@ -198,4 +195,3 @@ function setDownload(text){
 
     document.getElementById('download_link').href = url;
 }
-
