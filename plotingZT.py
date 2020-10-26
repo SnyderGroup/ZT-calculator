@@ -19,8 +19,7 @@ def Import(file_pathname):
                         if len(value) > 0:
                             store_row.append(float(value))
                     data.append(store_row)
-    opened_File.close()
-    return (file)
+    return (data)
 
 def Export(file_name, data):
     File = open(file_name, 'w')
@@ -36,7 +35,7 @@ def optimizedU(data):
     while True:
         uMax = max(Us)
         uMin = min(Us)
-        if uMax-Min < .000001:
+        if uMax-uMin < .000001:
             break
         test_U = []
         du = (uMax-uMin)/5
@@ -55,19 +54,6 @@ def find_place(number, place): # find index (value, litslike)
         if place[thing] == number:
             return thing
     print ("Error in find_place")
-def find_highest(place): #max()
-    x = place[0]
-    #print(place)
-    for number in place:
-        if number > x:
-            x = number
-    return (x)
-def find_lowest(place): #min()
-    x = place[0]
-    for number in place:
-        if number < x:
-            x = number
-    return (x)
 
 def functions_zT(T,R,S,K):
     return ((T*(S**2)/(K*R))/10**7)
